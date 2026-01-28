@@ -1,16 +1,19 @@
 import React from "react";
 import { LOGO } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="absolute w-screen px-32 py-1 md:py-2 bg-gradient-to-b from-black z-10 flex flex-row md:flex-row place-items-center justify-between">
       {/* <img className="w-28 md:w-44 -mx-28 md:mx-0" src={LOGO} alt="logo" /> */}
       <div className="flex justify-start w-full md:w-auto">
-        <img
-          className="w-28 -mx-28 md:w-44 md:mx-0"
-          src={LOGO}
-          alt="Netflix Logo"
-        />
+        <Link to="/">
+          <img
+            className="w-28 -mx-28 md:w-44 md:mx-0"
+            src={LOGO}
+            alt="Netflix Logo"
+          />
+        </Link>
       </div>
 
       {/* {user && (
