@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { SIGN_IN_BG } from "../utils/constants";
+import { SIGN_IN_BG, USER_AVATAR } from "../utils/constants";
 import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -8,26 +8,35 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/Store/Slice/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errormessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
 
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = () => {
+    //Validate the Form Data
+
+    // console.log(email.current.value);
+    // console.log(password.current.value);
 
     const message = checkValidData(
-      name.current.value,
+      isSignInForm ? null : name.current.value,
       email.current.value,
       password.current.value,
     );
+    // console.log(message);
     setErrorMessage(message);
 
     if (message) return;
 
+    //then we can proceed to write Sign In / Sign Up Logic
     if (!isSignInForm) {
       // Sign Up Logic
       createUserWithEmailAndPassword(
@@ -38,7 +47,29 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          // this user won't have the updated value
           console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: USER_AVATAR,
+          })
+            .then(() => {
+              // Profile updated!
+              //new auth information will be from auth.currentUser
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                }),
+              );
+            })
+            .catch((error) => {
+              // An error occurred
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
