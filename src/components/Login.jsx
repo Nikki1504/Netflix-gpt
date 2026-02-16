@@ -23,15 +23,11 @@ const Login = () => {
   const handleButtonClick = () => {
     //Validate the Form Data
 
-    // console.log(email.current.value);
-    // console.log(password.current.value);
-
     const message = checkValidData(
       isSignInForm ? null : name.current.value,
       email.current.value,
       password.current.value,
     );
-    // console.log(message);
     setErrorMessage(message);
 
     if (message) return;
@@ -48,7 +44,6 @@ const Login = () => {
           // Signed up
           const user = userCredential.user;
           // this user won't have the updated value
-          console.log(user);
           updateProfile(user, {
             displayName: name.current.value,
             photoURL: USER_AVATAR,
