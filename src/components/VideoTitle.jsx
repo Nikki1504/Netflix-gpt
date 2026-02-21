@@ -7,8 +7,8 @@ const VideoTitle = ({ title, description }) => {
       <h1 className="text-xl mb-3 md:text-5xl font-semibold md:font-bold">
         {title}
       </h1>
-      <p className="hidden md:inline-block py-3 text-lg w-1/4">
-        {description?.slice(0, 180)}...
+      <p className="hidden md:inline-block py-6 lg:text-lg md:text-sm w-full md:w-1/2 lg:w-1/3">
+        {description?.slice(0, 160)}...
       </p>
       <div className="flex">
         <button className="bg-white text-black flex items-center gap-2 font-semibold py-2 px-4 md:px-10 rounded-md cursor-pointer hover:bg-white/80 transition">
