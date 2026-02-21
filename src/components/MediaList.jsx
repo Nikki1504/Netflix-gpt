@@ -1,8 +1,8 @@
 import React from "react";
 import MediaCard from "./MediaCard";
 
-const MovieList = ({ title, medias }) => {
-  //   console.log(movies);
+const MediaList = ({ title, medias }) => {
+
   return (
     <div className="px-4">
       <h1 className="text-lg md:text-3xl py-3 text-white">{title}</h1>
@@ -17,4 +17,4 @@ const MovieList = ({ title, medias }) => {
   );
 };
 
-export default MovieList;
+export default MediaList;

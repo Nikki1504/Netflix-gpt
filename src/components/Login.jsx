@@ -21,8 +21,6 @@ const Login = () => {
   const password = useRef(null);
 
   const handleButtonClick = () => {
-    //Validate the Form Data
-
     const message = checkValidData(
       isSignInForm ? null : name.current.value,
       email.current.value,
@@ -32,25 +30,19 @@ const Login = () => {
 
     if (message) return;
 
-    //then we can proceed to write Sign In / Sign Up Logic
     if (!isSignInForm) {
-      // Sign Up Logic
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value,
       )
         .then((userCredential) => {
-          // Signed up
           const user = userCredential.user;
-          // this user won't have the updated value
           updateProfile(user, {
             displayName: name.current.value,
             photoURL: USER_AVATAR,
           })
             .then(() => {
-              // Profile updated!
-              //new auth information will be from auth.currentUser
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
                 addUser({
@@ -62,7 +54,6 @@ const Login = () => {
               );
             })
             .catch((error) => {
-              // An error occurred
               setErrorMessage(error.message);
             });
         })
@@ -72,14 +63,12 @@ const Login = () => {
           setErrorMessage(errorCode + ":" + errorMessage);
         });
     } else {
-      // Sign In Logic
       signInWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value,
       )
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
           console.log(user);
         })

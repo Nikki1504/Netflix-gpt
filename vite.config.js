@@ -8,5 +8,11 @@ export default defineConfig({
   server: {
     open: true,
     browser: "google chrome",
+    proxy: {
+      "/gpt": {
+        target: "http://localhost:5050",
+        changeOrigin: true,
+      },
+    },
   },
 });

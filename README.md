@@ -1,1 +1,1 @@
--Fetch from TMDB movies
+-Start from creatin gemini key and make from there.

@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { addTopRatedMovies } from "../utils/Store/Slice/moviesSlice";
 
 const useTopRatedMovies = () => {
-  // Fetch data from TMDB API And update the store
   const dispatch = useDispatch();
   const topRatedMovies = useSelector((store) => store.movies.topRatedMovies);
 
@@ -14,7 +13,6 @@ const useTopRatedMovies = () => {
       API_OPTIONS,
     );
     const json = await data.json();
-    // console.log(json.results);
     dispatch(addTopRatedMovies(json.results));
   };
 

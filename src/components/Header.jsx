@@ -1,22 +1,23 @@
 import React, { useEffect } from "react";
-import { LOGO, USER_AVATAR } from "../utils/constants";
+import { LOGO, SUPPORTED_LANGUAGES, USER_AVATAR } from "../utils/constants";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/Store/Slice/userSlice";
+import { toggleGptSearchView } from "../utils/Store/Slice/gptSlice";
+import { changeLanguage } from "../utils/Store/Slice/configSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const { uid, email, displayName, photoURL } = user;
-        // here we will update our store
-        // this is the signed in
         dispatch(
           addUser({
             uid: uid,
@@ -27,22 +28,26 @@ const Header = () => {
         );
         navigate("/browse");
       } else {
-        // User is signed out
         dispatch(removeUser());
       }
     });
-    // Unsubscribe when component unmounts
     return () => unsubscribe();
   }, []);
+
+  const handleGptSearchClick = () => {
+    dispatch(toggleGptSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful (onAuthStateChanged will handle redirect)
         navigate("/");
       })
       .catch((error) => {
-        // An error happened.
         navigate("/error");
         console.log(error);
       });
@@ -50,7 +55,6 @@ const Header = () => {
 
   return (
     <div className="absolute w-screen px-32 py-1 md:py-2 bg-gradient-to-b from-black z-10 flex flex-row md:flex-row place-items-center justify-between">
-      {/* <img className="w-28 md:w-44 -mx-28 md:mx-0" src={LOGO} alt="logo" /> */}
       <div className="flex justify-start w-full md:w-auto">
         <Link to="/">
           <img
@@ -63,7 +67,7 @@ const Header = () => {
 
       {user && (
         <div className="flex justify-center p-2 -mx-32 gap-1 md:mx-0">
-          {/* {showGptSearch && (
+          {showGptSearch && (
             <select
               className="border border-neutral-500 bg-transparent p-1 text-sm md:p-2 md:m-2 text-white rounded-md"
               onChange={handleLanguageChange}
@@ -74,13 +78,13 @@ const Header = () => {
                 </option>
               ))}
             </select>
-          )} */}
-          {/* <button
+          )}
+          <button
             className="bg-blue-950/70 py-1 px-2 md:py-2 md:px-4 md:mx-4 md:my-2 rounded-lg text-white cursor-pointer "
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Home Page" : "GPT Search"}
-          </button> */}
+          </button>
           <img
             className="w-10 h-10 md:w-12 md:h-12"
             alt="user-avatar"

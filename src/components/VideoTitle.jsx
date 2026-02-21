@@ -1,4 +1,5 @@
 import React from "react";
+import { Play, Info } from "lucide-react";
 
 const VideoTitle = ({ title, description }) => {
   return (
@@ -10,11 +11,13 @@ const VideoTitle = ({ title, description }) => {
         {description?.slice(0, 180)}...
       </p>
       <div className="flex">
-        <button className="bg-white text-black font-semibold py-2 px-4 md:px-12 rounded-md cursor-pointer hover:bg-white/80">
-          ▶️ Play
+        <button className="bg-white text-black flex items-center gap-2 font-semibold py-2 px-4 md:px-10 rounded-md cursor-pointer hover:bg-white/80 transition">
+          <Play size={20} fill="black" />
+          <span>Play</span>
         </button>
-        <button className="px-4 mx-2 bg-neutral-400/50 text-white font-semibold py-2 md:px-12 rounded-md cursor-pointer hover:bg-neutral-800/60">
-          More Info
+        <button className="px-4 mx-2 flex items-center gap-2 bg-neutral-400/50 text-white font-semibold py-2 md:px-10 rounded-md cursor-pointer hover:bg-neutral-800/60 transition">
+          <Info size={20} />
+          <span>More Info</span>
         </button>
       </div>
     </div>
