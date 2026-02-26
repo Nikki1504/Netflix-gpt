@@ -9,7 +9,7 @@ const SecondaryContainer = () => {
   if (!movies.nowPlayingMovies) return <MediaShimmer />;
   return (
     <div className="bg-black">
-      <div className="mt-0 md:-mt-36 pl-3 md:pl-12 relative z-20 ">
+      <div className="mt-0 md:-mt-40 pl-3 md:pl-12 relative z-20 ">
         <MediaList title={"Now Playing"} medias={movies.nowPlayingMovies} />
         <MediaList title={"Popular Movies"} medias={movies.popularMovies} />
         <MediaList title={"Top Rated Movies"} medias={movies.topRatedMovies} />

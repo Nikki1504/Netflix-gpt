@@ -54,19 +54,15 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-32 py-1 md:py-2 bg-gradient-to-b from-black z-10 flex flex-row md:flex-row place-items-center justify-between">
+    <div className="absolute w-screen px-4 md:px-12 lg:px-20 py-1 md:py-2 bg-gradient-to-b from-black z-10 flex flex-row md:flex-row place-items-center justify-between">
       <div className="flex justify-start w-full md:w-auto">
         <Link to="/">
-          <img
-            className="w-28 -mx-28 md:w-44 md:mx-0"
-            src={LOGO}
-            alt="Netflix Logo"
-          />
+          <img className="w-28 md:w-44" src={LOGO} alt="Netflix Logo" />
         </Link>
       </div>
 
       {user && (
-        <div className="flex justify-center p-2 -mx-32 gap-1 md:mx-0">
+        <div className="flex justify-center p-2 gap-1 md:mx-0">
           {showGptSearch && (
             <select
               className="border border-neutral-500 bg-transparent p-1 text-sm md:p-2 md:m-2 text-white rounded-md"
@@ -80,7 +76,7 @@ const Header = () => {
             </select>
           )}
           <button
-            className="bg-blue-950/70 py-1 px-2 md:py-2 md:px-4 md:mx-4 md:my-2 rounded-lg text-white cursor-pointer "
+            className="bg-blue-950/70 py-1 px-2 md:py-2 md:px-4 md:mx-4 md:my-2 rounded-lg text-sm text-white cursor-pointer "
             onClick={handleGptSearchClick}
           >
             {showGptSearch ? "Home Page" : "GPT Search"}

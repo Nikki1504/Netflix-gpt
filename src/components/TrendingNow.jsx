@@ -1,30 +1,21 @@
 import React from "react";
+import useTrendingNow from "../hooks/useTrendingNow";
+import MediaList from "./MediaList";
+import { useSelector } from "react-redux";
 
 const TrendingNow = () => {
+  useTrendingNow();
+  const movies = useSelector((store) => store.movies);
   return (
-    <div className="px-6 md:px-20 py-10">
-      <h1 className="text-xl md:text-2xl font-semibold mb-4">Trending Now</h1>
-
-      <div className="flex overflow-x-scroll gap-6 no-scrollbar">
-        {Array(5)
-          .fill("")
-          .map((_, index) => (
-            <div
-              key={index}
-              className="relative min-w-[160px] md:min-w-[200px]"
-            >
-              <img
-                className="rounded-lg"
-                src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
-                alt="movie"
-              />
-              <span className="absolute bottom-2 left-2 text-5xl font-bold text-black/70">
-                {index + 1}
-              </span>
-            </div>
-          ))}
+    <section className="relative bg-black z-20">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-8 md:py-12">
+        <MediaList
+          title="Trending Now"
+          medias={movies.trendingNowMovies}
+          mode="home"
+        />
       </div>
-    </div>
+    </section>
   );
 };
 
