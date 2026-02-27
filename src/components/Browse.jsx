@@ -20,7 +20,7 @@ const Browse = () => {
   usePopularSeries();
   useTopRatedSeries();
   return (
-    <div>
+    <div className="bg-black">
       <Header />
       {showGptSearch ? (
         <GptSearch />
